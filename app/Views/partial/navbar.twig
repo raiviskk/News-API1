@@ -1,10 +1,12 @@
+<!DOCTYPE html>
+<html>
 <head>
     <style>
         /* Style the navigation bar container */
         nav {
             background-color: #333;
             color: #fff;
-            padding: 10px 0;
+            padding: 10px 20px; /* Increased left and right padding */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -17,32 +19,28 @@
             color: #fff;
         }
 
-        /* Style the search form */
+        /* Style the search form container */
         .search-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .search-form {
             display: flex;
             align-items: center;
         }
 
         /* Style the label for the search input */
         label {
-            margin-right: 10px;
             font-size: 16px;
             color: #fff;
+            margin-right: 10px;
         }
 
         /* Style the search input */
-        #episode {
+        input[type="text"],
+        input[type="date"] {
             padding: 8px;
             border: 2px solid #fff;
             border-radius: 5px;
             background-color: transparent;
             color: #fff;
+            margin-right: 10px;
         }
 
         /* Style the search button */
@@ -82,33 +80,60 @@
         .menu a:hover {
             text-decoration: underline;
         }
+
+        /* Style the flag buttons */
+        .flag-buttons {
+            display: flex;
+        }
+
+        .flag-button {
+            background-color: #333;
+            border: none;
+            font-size: 24px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 <nav>
-    <a class="logo" href="/"></a>
-
-    <div class="flag-buttons">
-        <button class="flag-button" onclick="location.href='/country/lv'">🇱🇻</button>
-        <button class="flag-button" onclick="location.href='/country/gb'">🇬🇧</button>
-        <button class="flag-button" onclick="location.href='/country/us'">🇺🇸</button>
-    </div>
-    <div id="london-time">
-        London Time: {{ londonTime.format('H:i') }}
-    </div>
-    {% if weatherData %}
-        <div id="weather">
-            Weather in London: {{ weatherData.weather[0].description }}
-            Temperature: {{ weatherData.main.temp_celsius }}°C
-        </div>
-    {% endif %}
     <div class="menu-container">
         <ul class="menu">
             <li><a href="/">Home</a></li>
         </ul>
     </div>
 
+    <div class="flag-buttons">
+        <button class="flag-button" onclick="location.href='/country/lv'">🇱🇻</button>
+        <button class="flag-button" onclick="location.href='/country/gb'">🇬🇧</button>
+        <button class="flag-button" onclick="location.href='/country/us'">🇺🇸</button>
+    </div>
 
+    <div class="search-container">
+        <form action="/search" method="get">
+            <label for="what">Search for:</label>
+            <input type="text" id="what" name="what" placeholder="Enter your search...">
+
+            <label for="from">From Date:</label>
+            <input type="date" id="from" name="from" placeholder="From Date">
+
+            <label for="till">Till Date:</label>
+            <input type="date" id="till" name="till" placeholder="Till Date">
+
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <div id="london-time">
+        London Time: {{ londonTime.format('H:i') }}
+    </div>
+
+    {% if weatherData %}
+        <div id="weather">
+            Weather in London: {{ weatherData.weather[0].description }}
+            Temperature: {{ weatherData.main.temp_celsius }}°C
+        </div>
+    {% endif %}
 </nav>
 </body>
-
+</html>

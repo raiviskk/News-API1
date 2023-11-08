@@ -69,6 +69,31 @@ class ApiFetcher
         return $collection;
     }
 
+    public function searchNewsFromApi(string $query, string $fromDate, string $toDate): ?NewsCollection
+    {
+        // Create the API request URL based on the search query and date range
+        $url = "https://newsapi.org/v2/everything?q={$query}&from={$fromDate}&to={$toDate}&sortBy=popularity&apiKey=" . self::API_KEY;
+
+        $response = $this->client->get($url);
+        $data = json_decode($response->getBody(), false);
+
+        $collection = new NewsCollection();
+
+        foreach ($data->articles as $result) {
+            $author = $result->author;
+            $title = $result->title;
+            $description = $result->description;
+            $url = $result->url;
+            $urlToImage = $result->urlToImage;
+            $publishedAt = Carbon::parse($result->publishedAt);
+
+            $collection->add(new News($author, $title, $description, $url, $urlToImage, $publishedAt));
+        }
+
+        return $collection;
+    }
+
+
 
 
 
