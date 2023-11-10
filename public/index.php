@@ -10,6 +10,9 @@ use Twig\Loader\FilesystemLoader;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->safeLoad();
+
 $loader = new FilesystemLoader(__DIR__ . '/../app/Views/');
 $twig = new Environment($loader);
 
@@ -18,9 +21,8 @@ $londonTime = Carbon::now('Europe/London');
 $twig->addGlobal('londonTime', $londonTime);
 
 //weather
-$apiKey = 'bd4c3e9c3add39698ed3161185569a6a';
 $city = 'London';
-$url = "https://api.openweathermap.org/data/2.5/weather?q=$city&units=metric&appid=$apiKey";
+$url = "https://api.openweathermap.org/data/2.5/weather?q=$city&units=metric&appid={$_ENV['WEATHER_API_KEY']}";
 
 $response = file_get_contents($url);
 $weatherData = json_decode($response, true);
