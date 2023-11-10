@@ -1,13 +1,10 @@
 <?php
 
-use App\ApiFetcher;
 use App\Controllers\NewsController;
-use App\Controllers\PageController;
 use App\Controllers\CountryController;
 use App\Controllers\SearchController;
 use App\Response;
 use Carbon\Carbon;
-use GuzzleHttp\Client;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -39,7 +36,6 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('GET', '/', [NewsController::class, 'index']);
     $r->addRoute('GET', '/country/{country:\w+}', [CountryController::class, 'index']);
     $r->addRoute('GET', '/search', [SearchController::class, 'index']);
-
 });
 
 // Fetch method and URI from somewhere

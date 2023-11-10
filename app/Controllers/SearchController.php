@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\ApiFetcher;
 use App\Response;
 
-
 class SearchController
 {
     private ApiFetcher $api;

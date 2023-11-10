@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-
 class NewsCollection
 {
     private array $news = [];
