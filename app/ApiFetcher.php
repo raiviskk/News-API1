@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use App\Models\News;
@@ -21,7 +23,7 @@ class ApiFetcher
     public function fetchNewsFromApi(string $source = 'bbc-news'): NewsCollection
     {
         $response = $this->client->get(self::API_URL . $source . '&apiKey=' . $_ENV['API_KEY']);
-        $data = json_decode($response->getBody(), false);
+        $data = json_decode((string)$response->getBody(), false);
 
         $collection = new NewsCollection();
 
@@ -43,7 +45,7 @@ class ApiFetcher
     public function headlinesFromApi(string $source): ?NewsCollection
     {
         $response = $this->client->get(self::API_SOURCE_URL . $source . '&apiKey=' . $_ENV['API_KEY']);
-        $data = json_decode($response->getBody(), false);
+        $data = json_decode((string)$response->getBody(), false);
 
         $collection = new NewsCollection();
 
@@ -67,7 +69,7 @@ class ApiFetcher
         $url = "https://newsapi.org/v2/everything?q={$query}&from={$fromDate}&to={$toDate}&sortBy=popularity&apiKey=" . $_ENV['API_KEY'];
 
         $response = $this->client->get($url);
-        $data = json_decode($response->getBody(), false);
+        $data = json_decode((string)$response->getBody(), false);
 
         $collection = new NewsCollection();
 

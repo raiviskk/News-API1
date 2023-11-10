@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Controllers\NewsController;
 use App\Controllers\CountryController;
 use App\Controllers\SearchController;
