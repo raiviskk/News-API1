@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Carbon\Carbon;
@@ -14,18 +16,15 @@ class News
     private ?Carbon $publishedAt;
 
 
-
     public function __construct
     (
-        ?String $author,
+        ?string $author,
         ?string $title,
         ?string $description,
         ?string $url,
         ?string $urlToImage,
         ?Carbon $publishedAt
-    )
-    {
-
+    ) {
         $this->author = $author;
         $this->title = $title;
         $this->description = $description;
