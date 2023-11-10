@@ -3,8 +3,7 @@
 namespace App;
 
 
-use App\Models\Character;
-use App\Models\CharacterCollection;
+
 use App\Models\News;
 use App\Models\NewsCollection;
 use Carbon\Carbon;
@@ -71,7 +70,7 @@ class ApiFetcher
 
     public function searchNewsFromApi(string $query, string $fromDate, string $toDate): ?NewsCollection
     {
-        // Create the API request URL based on the search query and date range
+
         $url = "https://newsapi.org/v2/everything?q={$query}&from={$fromDate}&to={$toDate}&sortBy=popularity&apiKey=" . self::API_KEY;
 
         $response = $this->client->get($url);
