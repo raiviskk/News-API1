@@ -20,15 +20,12 @@ $twig->addGlobal('londonTime', $londonTime);
 //weather
 $apiKey = 'bd4c3e9c3add39698ed3161185569a6a';
 $city = 'London';
-$url = "http://api.openweathermap.org/data/2.5/weather?q=$city&appid=$apiKey";
+$url = "https://api.openweathermap.org/data/2.5/weather?q=$city&units=metric&appid=$apiKey";
 
 $response = file_get_contents($url);
 $weatherData = json_decode($response, true);
 
 if ($weatherData) {
-    $temperatureKelvin = $weatherData['main']['temp'];
-    $temperatureCelsius = $temperatureKelvin - 273.15;
-    $weatherData['main']['temp_celsius'] = $temperatureCelsius;
     $twig->addGlobal('weatherData', $weatherData);
 }
 
